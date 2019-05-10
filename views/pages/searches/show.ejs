@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+<head></head>
+
+<body>
+  <h1></h1>
+  <p><a href="/">Home</a></p>
+
+  <ul>
+    <% arrayOfItems.forEach(item => { %>
+    <li><%= item.title %></li>
+    <li><img src="<%= item.image %>"></li>
+    <% }); %>
+  </ul>
+
+ 
+</body>
+
+</html>
