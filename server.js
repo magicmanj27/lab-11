@@ -33,8 +33,32 @@ app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 function Book(info) {
   const placeholderImage = 'https://i.imgur.com/J5LVHEL.jpg';
 
-  this.title = info.title || 'No title available';
-  this.image = info.imageLinks.thumbnail || placeholderImage;
+  // const imageChange = info.imageLinks.thumbnail;
+
+  // const myImage = changeURL(imageChange);
+
+
+  // function changeURL(newURL) {
+  //   let changeString = 'https:';
+  //   let stringArr = newURL.split(':');
+
+  //   let myURl = changeString + stringArr[1];
+
+  //   return myURl;
+  // }
+
+  this.title = info.title ? info.title : 'No title available';
+
+
+
+  this.image = info.imageLinks ? info.imageLinks.thumbnail.replace('http:', 'https:') : placeholderImage;
+
+  console.log(this.image);
+
+
+
+  this.description = info.description ? info.description : 'No description available';
+
 }
 
 function newSearch(resquest, response) {
@@ -58,7 +82,7 @@ function createSearch(request, response) {
 
   superagent.get(url)
     .then(apiResponse => apiResponse.body.items.map(bookResult => new Book(bookResult.volumeInfo)))
-   
+
     .then(results => response.render('pages/searches/show', { arrayOfItems: results }));
 }
 
