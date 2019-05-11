@@ -24,7 +24,7 @@ app.get('/', newSearch);
 app.post('/searches', createSearch);
 
 // Catch-all
-app.get('*', (request, response) => response.status(404).send('This route does not exist!'));
+app.get('*', (request, response) => response.status(404).send('This page does not exist!'));
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
@@ -33,19 +33,7 @@ app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 function Book(info) {
   const placeholderImage = 'https://i.imgur.com/J5LVHEL.jpg';
 
-  // const imageChange = info.imageLinks.thumbnail;
 
-  // const myImage = changeURL(imageChange);
-
-
-  // function changeURL(newURL) {
-  //   let changeString = 'https:';
-  //   let stringArr = newURL.split(':');
-
-  //   let myURl = changeString + stringArr[1];
-
-  //   return myURl;
-  // }
 
   this.title = info.title ? info.title : 'No title available';
 
@@ -82,9 +70,13 @@ function createSearch(request, response) {
 
   superagent.get(url)
     .then(apiResponse => apiResponse.body.items.map(bookResult => new Book(bookResult.volumeInfo)))
-
-    .then(results => response.render('pages/searches/show', { arrayOfItems: results }));
+    .then(results => response.render('pages/searches/show', { arrayOfItems: results }))
+    .catch(error => response.render('pages/searches/error', { error : error }));
 }
+
+// function handleError(error, response) {
+//   response.render('pages/error', { error : error });
+// }
 
 
 
