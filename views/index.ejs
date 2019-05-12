@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <%- include('./layouts/head') %>
+</head>
+
+<body>
+  <main>
+    <header>
+      <%- include('./layouts/header') %>
+    </header>
+    <section class="book-view container">
+      <ul id="book-list">
+        <% results.forEach(book => { %>
+        <li class="book-item" data-id="<%= book.id %>">
+          <h4>Book: <%= book.title %></h4>
+          <img src="<%= book.image %>">
+          <p>Book description: <%= book.description %></p>
+          <a href="/books/<%= book.id%>">View Details</a>
+        </li>
+        <% }) %>
+      </ul>
+    </section>
+  </main>
+</body>
+
+</html>
