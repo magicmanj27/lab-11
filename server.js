@@ -52,7 +52,7 @@ function getBooks(request, response) {
       console.log(results.rows);
       response.render('index', { results: results.rows })
     })
-    .catch(handleError);
+    .catch(error => handleError(error, response));
 }
 
 function getOneBook(request, response) {
@@ -65,7 +65,7 @@ function getOneBook(request, response) {
     .then(result => {
       return response.render('pages/detail', { book: result.rows[0] });
     })
-    .catch(err => handleError(err, response));
+    .catch(error => handleError(error, response));
 }
 
 function showForm(request, response) {
@@ -84,7 +84,7 @@ function addBook(request, response) {
       console.log(result);
       response.redirect('/')
     })
-    .catch(err => handleError(err, response));
+    .catch(error => handleError(error, response));
 }
 
 
@@ -133,10 +133,11 @@ function createSearch(request, response) {
   superagent.get(url)
     .then(apiResponse => apiResponse.body.items.map(bookResult => new Book(bookResult.volumeInfo)))
     .then(results => response.render('pages/searches/show', { arrayOfItems: results }))
-    .catch(err => handleError(err, response));
+    .catch(error => handleError(error, response));
 }
 
 function handleError(error, response) {
+  console.log(response);
   response.render('pages/searches/error', { error: 'Uh Oh - Something when wrong...' });
 }
 

@@ -14,11 +14,11 @@
       <ul id="book-list">
         <li class="book-item" data-id="<%= book.id %>">
           <h4>Title: <%= book.title %></h4>
-          <p>Image: <%= book.image %></p>
+          <p>Image: <img src="<%= book.image %>"></p>
           <p>Desciption: <%= book.description %></p>
-          <!-- <p>Completion status: <%= task.status %></p>
-          <p>Category: <%= task.category %></p>
-          <p>Complete this task by <%= task.due %></p> -->
+          <p>Completion status: <%= book.status %></p>
+          <p>Category: <%= book.category %></p>
+          <p>Complete this task by <%= book.due %></p>
         </li>
       </ul>
     </section>
