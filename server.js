@@ -37,6 +37,7 @@ app.get('/books/:book_id', getOneBook);
 app.get('/add', showForm);
 app.post('/add', addBook);
 
+
 // Catch-all
 app.get('*', (request, response) => response.status(404).send('This page does not exist!'));
 
@@ -73,11 +74,13 @@ function showForm(request, response) {
 }
 
 function addBook(request, response) {
-  console.log(request.body);
-  let { title, image, description } = request.body;
+  console.log('🤨',request.body);
 
-  let SQL = 'INSERT INTO tasks(title, image, description) VALUES ($1, $2, $3);';
-  let values = [title, image, description ];
+  let { title, author, isbn, image, description } = request.body;
+  console.log('This is title: ', title);
+
+  let SQL = 'INSERT INTO books (title, author, isbn, image, description) VALUES ($1, $2, $3, $4, $5);';
+  let values = [title, author, isbn, image, description ];
 
   return client.query(SQL, values)
     .then(result => {
@@ -92,7 +95,7 @@ function addBook(request, response) {
 
 
 
-// Create a new search to the Google Boos API
+// Create a new search to the Google Books API
 app.post('/searches', createSearch);
 
 
@@ -102,18 +105,19 @@ app.post('/searches', createSearch);
 function Book(info) {
   const placeholderImage = 'https://i.imgur.com/J5LVHEL.jpg';
   this.title = info.title ? info.title : 'No title available';
+  this.author = info.authors ? info.authors[0] : 'No Author Available';
+  this.isbn = info.industryIdentifiers ? `${info.industryIdentifiers[0].identifier}` : 'ISBN not available';
   this.image = info.imageLinks ? info.imageLinks.thumbnail.replace('http:', 'https:') : placeholderImage;
   console.log(this.image);
   this.description = info.description ? info.description : 'No description available';
+  this.id = info.industryIdentifiers ? `${info.industryIdentifiers[0].identifier}` : '';
 }
 
 function newSearch(request, response) {
   response.render('pages/searches/new');
 }
 
-// function homePage(request, response) {
-//   response.render('pages/index');
-// }
+
 
 function createSearch(request, response) {
   console.log(request.body);
@@ -137,7 +141,7 @@ function createSearch(request, response) {
 }
 
 function handleError(error, response) {
-  console.log(response);
+  console.log(error);
   response.render('pages/searches/error', { error: 'Uh Oh - Something when wrong...' });
 }
 
