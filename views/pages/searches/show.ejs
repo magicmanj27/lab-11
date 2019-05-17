@@ -1,43 +1,21 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-
-  <link rel="stylesheet" href="styles/modules.css">
-</head>
+<head></head>
 
 <body>
   <h1></h1>
   <p><a href="/">Home</a></p>
 
   <ul>
-    
-    <% arrayOfItems.forEach((book, idx) => { %>
-    <li><%= book.title %></li>
-    <li><img src="<%= book.image %>"></li>
-    <li><%= book.description %></li>
-    <button type="submit"> Add Book</button>
-
-    <button type="button" name="formButton" class="formButton">Show form</button>
-
-    <form action="/add" method="POST" class="hidden" >
-      <input type="text" name="title" value="<%= book.title %>" />
-      <input type="text" name="author" value="<%= book.author %>" />
-      <input type="text" name="isbn" value="<%= book.isbn %>" />
-      <input type="text" name="image" value="<%= book.image %>" />
-      <!-- <input type="text" name="title" value="<%= book.title %>" /> -->
-      <input type="text" name="description" value="<%= book.description %>" />
-      <button type="submit">Add Book</button>
-    </form>
-
+    <% arrayOfItems.forEach(item => { %>
+    <li><%= item.title %></li>
+    <li><img src="<%= item.image %>"></li>
+    <li><%= item.description %></li>
+    <li></li>
     <% }); %>
-
-
   </ul>
 
-  
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-  <script src="js/app.js"></script>
  
 </body>
 

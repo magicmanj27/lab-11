@@ -6,6 +6,7 @@ require('dotenv').config();
 const express = require('express');
 const superagent = require('superagent');
 const pg = require('pg');
+const methodOverride = require('method-override');
 
 // Application Setup
 const app = express();
@@ -25,6 +26,15 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
 
+app.use(methodOverride(function (request, response) {
+  if (request.body && typeof request.body === 'object' && '_method' in request.body) {
+    let method = request.body._method;
+    delete request.body._method;
+    return method;
+  }
+}));
+
+
 // API Routes
 // Renders the search form
 // app.get('/', homePage);
@@ -36,6 +46,7 @@ app.get('/searches', newSearch);
 app.get('/books/:book_id', getOneBook);
 app.get('/add', showForm);
 app.post('/add', addBook);
+app.put('/update/:book_id', updateBook);
 
 
 // Catch-all
@@ -74,19 +85,31 @@ function showForm(request, response) {
 }
 
 function addBook(request, response) {
-  console.log('🤨',request.body);
+  console.log('🤨', request.body);
 
   let { title, author, isbn, image, description } = request.body;
   console.log('This is title: ', title);
 
   let SQL = 'INSERT INTO books (title, author, isbn, image, description) VALUES ($1, $2, $3, $4, $5);';
-  let values = [title, author, isbn, image, description ];
+  let values = [title, author, isbn, image, description];
 
   return client.query(SQL, values)
     .then(result => {
       console.log(result);
       response.redirect('/')
     })
+    .catch(error => handleError(error, response));
+}
+
+function updateBook(request, response) {
+  let { title, author, isbn, image, description } = request.body;
+
+  let SQL = `UPDATE books SET title=$1, author=$2, isbn=$3, image=$4, description=$5 WHERE id=$6`;
+
+  let values = [title, author, isbn, image, description, request.params.book_id];
+
+  client.query(SQL, values)
+    .then(response.redirect(`/books/${request.params.book_id}`))
     .catch(error => handleError(error, response));
 }
 
@@ -116,8 +139,6 @@ function Book(info) {
 function newSearch(request, response) {
   response.render('pages/searches/new');
 }
-
-
 
 function createSearch(request, response) {
   console.log(request.body);

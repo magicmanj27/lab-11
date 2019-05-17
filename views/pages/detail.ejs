@@ -19,9 +19,11 @@
           <p>Image: <img src="<%= book.image %>"></p>
           <p>Desciption: <%= book.description %></p>
           <p>Category: <%= book.category %></p>
-         
         </li>
       </ul>
+    </section>
+    <section class="book-view container">
+      <%- include('../layouts/form', {formAction: 'update', book:book}) %>
     </section>
   </main>
 </body>
