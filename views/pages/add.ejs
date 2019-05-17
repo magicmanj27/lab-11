@@ -12,7 +12,8 @@
 
   <main>
     <section class="create-view container">
-      <h2 class="view-title">Add a New Book</h2>
+      <%- include('../layouts/form', {formAction: 'create', book:''})%>
+      <!-- <h2 class="view-title">Add a New Book</h2>
       <form id="create-form" action="/add" method="post">
         <fieldset>
           <legend>Add a task</legend>
@@ -23,7 +24,7 @@
           <input type="text" name="status" placeholder="Completion Status">
           <button type="submit">Add This Task</button>
         </fieldset>
-      </form>
+      </form> -->
     </section>
   </main>
 </body>

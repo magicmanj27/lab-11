@@ -2,3 +2,53 @@
   display: none;
 }
 
+header {
+  background-color: black;
+}
+
+.head-container {
+  margin: 0 auto;
+  display: grid;
+  width: 550px;
+  height: 100%;
+  grid-template-areas: "h m"
+  "t m";
+  grid-template-columns: 90% 10%;
+  grid-template-rows: 80px 40px;
+  /* max-width: 480px; */
+  /* max-height: 700px; */
+  background-color: rgb(60, 67, 74);
+}
+/* .container > div {
+  border: 1px dashed #888;
+} */
+
+.h {
+  grid-area: h;
+  background-color: black;
+  color: white;
+  display: flex;
+  vertical-align: center;
+  align-items: center;
+  padding-left: 10px;
+}
+.t {
+  grid-area: t;
+  background-color: rgb(60, 67, 74);
+  color: lightgray;
+  display: flex;
+  vertical-align: center;
+  align-items: center;
+  justify-content: center;
+  padding-left: 50px;
+}
+
+.m {
+  /* grid-area: m; */
+  color: white;
+  background-color: black;
+  display: flex;
+ vertical-align: flex-start;
+ align-items: center;
+  justify-content: center;
+}

@@ -5,29 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   
+  <link rel="stylesheet" href="styles/reset.css">
   <link rel="stylesheet" href="styles/base.css">
+  <link rel="stylesheet" href="styles/modules.css">
   <title>Search</title>
 </head>
   <body>
+    <header class="head-container">
+      <div class="h">My Books</div>
+      <div class="t">Search for a book title or author</div>
+      <div class="m">Menu</div>
+    </header>
     <main>
-      <h4>Search by Title or Author</h4>
       <form action="/searches" method="post">
-        <input type="text" name="search" placeholder="Enter a title or author" required> 
-        <fieldset>
-          <label for="title">
-            <span>Title</span>
-            <input type="radio" name="search" value="title" required>
+        <input class="a" type="text" name="search" class="a" placeholder="Enter a title or author" required> 
+        <fieldset class="title b">
+          <label for="title b">
+            <span class="">Title</span>
+            <input class="b" type="radio" name="search" value="title" required>
           </label>
         </fieldset>
-        <fieldset>
+        <fieldset class="author">
           <label for="author">
             <span>Author</span>
-            <input type="radio" name="search"
+            <input class="c" type="radio" name="search"
             value="author" required>
           </label>
         </fieldset>
-        <button type="submit">Search the Google Books API</button>
+        <button class="i" type="submit">Search the Google Books API</button>
       </form>
+
+      
     </main>
   </body>
 </html>
