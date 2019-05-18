@@ -7,9 +7,11 @@
   <input type="text" name="author" value="<%- book.author %>" placeholder="Author">
   <input type="text" name="isbn" value="<%- book.isbn %>" placeholder="ISBN">
   <input type="text" name="image" value="<%- book.image %>" placeholder="Image">
+  <input type="text" name="category" value="<%- book.category %>" placeholder="Image">
   <button type="submit"><%- 'update' === formAction ? "Update This Book" : "Add This Book" %></button>
 </form>
 
-<form method="post" action="/update/{{book.id}}?_method=DELETE">
+<form action="/delete/<%= book.id %>" method="post">
   <input type="hidden" name="_method" value="DELETE">
+  <button type="submit">Delete Book</button>
 </form>

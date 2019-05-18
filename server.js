@@ -47,6 +47,7 @@ app.get('/books/:book_id', getOneBook);
 app.get('/add', showForm);
 app.post('/add', addBook);
 app.put('/update/:book_id', updateBook);
+app.delete('/delete/:book_id', deleteBook);
 
 
 // Catch-all
@@ -87,11 +88,11 @@ function showForm(request, response) {
 function addBook(request, response) {
   console.log('🤨', request.body);
 
-  let { title, author, isbn, image, description } = request.body;
+  let { title, author, isbn, image, description, category} = request.body;
   console.log('This is title: ', title);
 
-  let SQL = 'INSERT INTO books (title, author, isbn, image, description) VALUES ($1, $2, $3, $4, $5);';
-  let values = [title, author, isbn, image, description];
+  let SQL = 'INSERT INTO books (title, author, isbn, image, description, category) VALUES ($1, $2, $3, $4, $5, $6);';
+  let values = [title, author, isbn, image, description, category];
 
   return client.query(SQL, values)
     .then(result => {
@@ -102,21 +103,26 @@ function addBook(request, response) {
 }
 
 function updateBook(request, response) {
-  let { title, author, isbn, image, description } = request.body;
+  let { title, author, isbn, image, description, category } = request.body;
 
-  let SQL = `UPDATE books SET title=$1, author=$2, isbn=$3, image=$4, description=$5 WHERE id=$6`;
 
-  let values = [title, author, isbn, image, description, request.params.book_id];
+
+  let SQL = `UPDATE books SET title=$1, author=$2, isbn=$3, image=$4, description=$5, category=$6 WHERE id=$7`;
+
+  let values = [title, author, isbn, image, description, category, request.params.book_id];
 
   client.query(SQL, values)
     .then(response.redirect(`/books/${request.params.book_id}`))
     .catch(error => handleError(error, response));
 }
 
-
-
-
-
+function deleteBook(request, response) {
+  const SQL = 'DELETE FROM books WHERE id=$1;';
+  const value = [request.params.book_id];
+  client.query(SQL, value)
+    .then(response.redirect('/'))
+    .catch(error => handleError(error, response));
+}
 
 // Create a new search to the Google Books API
 app.post('/searches', createSearch);
@@ -134,6 +140,7 @@ function Book(info) {
   console.log(this.image);
   this.description = info.description ? info.description : 'No description available';
   this.id = info.industryIdentifiers ? `${info.industryIdentifiers[0].identifier}` : '';
+  this.category = info.categories ? info.categories[0].toLowerCase() : 'Uncategorized';
 }
 
 function newSearch(request, response) {
