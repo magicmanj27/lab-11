@@ -8,26 +8,36 @@
   <link rel="stylesheet" href="styles/reset.css">
   <link rel="stylesheet" href="styles/base.css">
   <link rel="stylesheet" href="styles/modules.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
   <title>Search</title>
 </head>
   <body>
     <header class="head-container">
       <div class="h">My Books</div>
+      <div class="j hidden">
+          <div id="men_ex">
+              <ul class="hamburger-list">
+                <li>Home</li>
+                <li>Search</li>
+                <li>Add New Book</li>
+              </ul>
+            </div>
+      </div>
       <div class="t">Search for a book title or author</div>
-      <div class="m">Menu</div>
+      <div class="m"><i class="fas fa-bars"></i></div>
     </header>
     <main>
       <form action="/searches" method="post">
         <input class="a" type="text" name="search" class="a" placeholder="Enter a title or author" required> 
         <fieldset class="title b">
           <label for="title b">
-            <span class="">Title</span>
+            <span class="boof">Title</span>
             <input class="b" type="radio" name="search" value="title" required>
           </label>
         </fieldset>
         <fieldset class="author">
           <label for="author">
-            <span>Author</span>
+            <span class="boog">Author</span>
             <input class="c" type="radio" name="search"
             value="author" required>
           </label>
@@ -35,7 +45,12 @@
         <button class="i" type="submit">Search the Google Books API</button>
       </form>
 
+     
+      <button id="show_hide">Show/Hide</button>
+      <button id="show">Show</button>
       
     </main>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="js/top-menu.js"></script>
   </body>
 </html>

@@ -14,7 +14,7 @@ header {
   grid-template-areas: "h m"
   "t m";
   grid-template-columns: 90% 10%;
-  grid-template-rows: 80px 40px;
+  grid-template-rows: 70px 40px;
   /* max-width: 480px; */
   /* max-height: 700px; */
   background-color: rgb(60, 67, 74);
@@ -32,6 +32,7 @@ header {
   align-items: center;
   padding-left: 10px;
 }
+
 .t {
   grid-area: t;
   background-color: rgb(60, 67, 74);
